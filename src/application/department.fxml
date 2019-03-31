@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.departmentController">
+   <children>
+      <Pane fx:id="pane_dashboard" layoutY="72.0" prefHeight="328.0" prefWidth="627.0">
+         <children>
+            <Pane fx:id="pane_department" layoutY="-76.0" prefHeight="407.0" prefWidth="627.0">
+               <children>
+                  <Pane prefHeight="66.0" prefWidth="627.0" style="-fx-background-color: #5B34B6;">
+                     <children>
+                        <Button layoutX="6.0" layoutY="13.0" mnemonicParsing="false" onAction="#go_back" prefHeight="40.0" prefWidth="79.0" style="-fx-background-color: #5B34B6;" text="BACK" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="btn_adddepartment" layoutX="119.0" layoutY="13.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" style="-fx-background-color: #5B34B6;" text="ADD DEPARTMENT" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                        <Button layoutX="491.0" layoutY="18.0" mnemonicParsing="false" onAction="#logout" prefHeight="40.0" prefWidth="101.0" style="-fx-background-color: #5B34B6;" text="LOGOUT" textFill="WHITE">
+                           <font>
+                              <Font name="System Bold" size="18.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </Pane>
+                  <TextArea fx:id="txt_departmentID" layoutX="278.0" layoutY="128.0" prefHeight="33.0" prefWidth="210.0" />
+                  <Label layoutX="150.0" layoutY="136.0" prefHeight="17.0" prefWidth="112.0" text="Department ID:" />
+                  <Button fx:id="btn_addDepartment" layoutX="20.0" layoutY="124.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="112.0" text="Add department" />
+                  <Label layoutX="150.0" layoutY="180.0" prefHeight="17.0" prefWidth="112.0" text="Department name:" />
+                  <TextArea fx:id="txt_departmentName" layoutX="278.0" layoutY="172.0" prefHeight="33.0" prefWidth="210.0" />
+               </children>
+            </Pane>
+         </children></Pane>
+   </children>
+</AnchorPane>
