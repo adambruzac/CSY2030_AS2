@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,31 +61,73 @@ public class dashboardController implements Initializable {
 		@FXML
 		public  TextField txt_departmentName;
 
-		//private ObjectInputStream ois;
-
-		//private department dept;
-	  
-
+		department d = new department();
+	
 		@Override
 		public void initialize(URL fxmlFileLocation, ResourceBundle resources) {
 			// TODO Auto-generated method stub
-			
+	
 		}
 	
-		public void handleClicks(ActionEvent event) throws IOException, ClassNotFoundException {
-	    	
-    		
-    		ArrayList<department> d = new ArrayList<department>();
-			department dept = new department();
-    		
-    		dept.setDepartmentID(txt_departmentID.getText());
-    		dept.setDepartmentName(txt_departmentName.getText());
-    		d.add(dept);
-	    	
+		public void readFile() {
+    		department d = null;
+    		List<department> xList;
+    		try {
+    			
+    			FileInputStream fileIn = new FileInputStream("department.dat");
+    	        ObjectInputStream in = new ObjectInputStream(fileIn);
+    			d = (department) in.readObject();
+    			in.close();
+    			fileIn.close(); 
+    		} catch(IOException i) {
+    			i.printStackTrace();
+    			return;
+    		} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+		}
+	
+		public void handleClicks(ActionEvent event) throws ClassNotFoundException, IOException{
+			
+			ArrayList<department> departmentList = new ArrayList<department>();
+			
+    	
 	    	if(event.getSource() == btn_department) {
 	    		System.out.println("Deparment panel");
 	    		pane_department.toFront();
 	    	}
+	    	
+	    	
+	    	else if(event.getSource() == btn_adddepartment ) {
+	    	
+	    	d.setDepartmentID(txt_departmentID.getText());
+			d.setDepartmentName(txt_departmentName.getText());
+	    	departmentList.add(d);
+	    	
+	    	try {
+	    		
+	    		FileOutputStream fos = new FileOutputStream("department.dat", true);
+	    		ObjectOutputStream oos = new ObjectOutputStream(fos);
+	    		oos.writeObject(departmentList);
+	    		oos.close();
+	    		
+	    	} catch(IOException ex) {
+	    		ex.printStackTrace();
+	    	}
+	    	System.out.println("Department ID saved is: " + d.getDepartmentID());
+	    	System.out.println("Department Name saved is: " + d.getDepartmentName());
+	    	
+	    	
+	    	}
+	    	
+	    	else if(event.getSource() == btn_showDepartment ) {
+	
+	    		readFile();
+
+	    	}
+	    	
+	    	
 	    	else if(event.getSource() == btn_back) {
 	    		System.out.println("Dashboard panel");
 	    		pane_dashboard.toFront();
@@ -94,76 +137,11 @@ public class dashboardController implements Initializable {
 	    		System.exit(0);
 	    		
 	    	}
-	    	else if(event.getSource() == btn_adddepartment ) {
+	    	
 
-	    		for (int i = 0; i< d.size(); i++) {
-
-					try {
-						FileOutputStream fileOut = new FileOutputStream("dept.dat", true);
-						ObjectOutputStream out = new ObjectOutputStream(fileOut);
-						out.writeObject(d.get(i));
-						out.close();
-						fileOut.close();
-						} catch(IOException x) {
-							x.printStackTrace();
-						}
-	    			System.out.println(d.get(i));
-
-	    		}
-	    		
-				System.out.println("save details");
-				//System.out.println(dept.getDepartmentID());
-				//System.out.println(dept.getDepartmentName());
-
-				txt_departmentID.setText("");
-				txt_departmentName.setText("");
-	    		
-	    	}
-	    	else if(event.getSource() == btn_showDepartment ) {
-		    	ArrayList<department> d1 = new ArrayList<department>();
-		    	
-	    		//for(int x = 0; x<d.size(); x++) {
-		    	
-		    		try {
-		    			FileInputStream fis = new FileInputStream("dept.dat");
-				        ObjectInputStream ois = new ObjectInputStream(fis);
-		    			while(((department)ois.readObject()) != null) {		 	   
-		    				// for(int x = 0; x<d.size(); x++) {
-		    					// d1 =(department)ois.readObject();
-		    					// System.out.println(d.get(x));
-		    				// }
-		    				d1 = (ArrayList<department>)ois.readObject();
-		    		    	System.out.println(d1);
-		    			}
-				        
-		    			 ois.close();
-		    		    fis.close();
-		    			// System.out.println(dept.getDepartmentID());
-		    		    	   }
-
-				    		 catch (IOException i) {
-				    			i.printStackTrace();
-				    			return;
-				    		} catch(ClassNotFoundException c) {
-				    			System.out.println("Department class not found");
-				    			c.printStackTrace();
-				    			return;
-				    		}
-		    			//System.out.println(d);
-	    			
-	    		}
-
-	    	  }
-	    			
-	  
-	    			//	System.out.println(d.get(i));
-	    			
-		    		//System.out.println(d.size());
-	    		
-	    		
-	    		
-	    	}
-//}
+		}
+}
+		
 	    	
 	    
 
